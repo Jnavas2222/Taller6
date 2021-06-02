@@ -6,7 +6,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-@Path("/pets/{pet_id}/case/{case_id}")
+@Path("/Case/{pet_id}/case/{case_id}")
 public class CaseResource {
 
     @PUT

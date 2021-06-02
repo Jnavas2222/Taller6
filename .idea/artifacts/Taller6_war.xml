@@ -7,7 +7,7 @@
         <packaging>war</packaging>
       </options>
     </properties>
-    <root id="archive" name="Auth2Tutorial-1.0-SNAPSHOT.war">
+    <root id="archive" name="Taller6-1.0-SNAPSHOT.war">
       <element id="artifact" artifact-name="Taller6:war exploded" />
     </root>
   </artifact>

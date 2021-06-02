@@ -5,19 +5,31 @@ import edu.unbosque.Taler6.resources.pojos.Case;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
-@Path("/pets/{pet_id}/cases")
+@Path("/pets/{pet_id}/created/{created_at}/type/{type}/description/{description}")
 public class CasesResource {
+
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response list(@PathParam("pet_id") Integer pet_id) {
+    public Response list(@PathParam("pet_id") Integer pet_id, @PathParam("created_at") String created_at, @PathParam("type") String type, @PathParam("description") String description) {
 
         List<Case> cases = new ArrayList<Case>();
-        cases.add(new Case(1,"Today","Steal","Someone was EVIL",pet_id));
-        cases.add(new Case(2,"Today","Death","Poor thing got an arrow to the knee",pet_id));
+        Date date = new Date();
+        System.out.println(date.toString());
+        DateFormat fechaHora = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String fecha = fechaHora.format(date);
+
+
+        for (int i = 0; i < cases.size(); i++) {
+            cases.add(new Case(i, created_at, type, description, pet_id));
+        }
+
 
         return Response.ok()
                 .entity(cases)
