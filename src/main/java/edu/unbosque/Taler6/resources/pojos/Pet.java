@@ -1,5 +1,8 @@
 package edu.unbosque.Taler6.resources.pojos;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Pet {
     private int pet_id;
     private String microchip;
@@ -10,6 +13,20 @@ public class Pet {
     private String sex;
     private String picture;
     private int owner_id;
+    private List<Owner> listOwner = new ArrayList<Owner>();
+
+    public Pet(int pet_id, String microchip, String name, String species, String race, String size, String sex, String picture, int owner_id, List<Owner> listOwner) {
+        this.pet_id = pet_id;
+        this.microchip = microchip;
+        this.name = name;
+        this.species = species;
+        this.race = race;
+        this.size = size;
+        this.sex = sex;
+        this.picture = picture;
+        this.owner_id = owner_id;
+        this.listOwner = listOwner;
+    }
 
     public Pet(int pet_id, String microchip, String name, String species, String race, String size, String sex, String picture, int owner_id) {
         this.pet_id = pet_id;
@@ -21,6 +38,14 @@ public class Pet {
         this.sex = sex;
         this.picture = picture;
         this.owner_id = owner_id;
+    }
+
+    public List<Owner> getListOwner() {
+        return listOwner;
+    }
+
+    public void setListOwner(List<Owner> listOwner) {
+        this.listOwner = listOwner;
     }
 
     public int getPet_id() {

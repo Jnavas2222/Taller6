@@ -9,7 +9,7 @@ import javax.ws.rs.core.Response;
 import java.util.ArrayList;
 import java.util.List;
 
-@Path("Owner")
+@Path("/Owner")
 public class OwnersResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -17,121 +17,62 @@ public class OwnersResource {
 
         List<Owner> owners = new ArrayList<Owner>();
 
-        owners.add(new Owner("juan", 1, "cristian u", "cdsanchezm@unbosque.edu.co", "barrio los andes"));
-        owners.add(new Owner("Username", 2, "andres u", "pongan aca sus correos vagos", "suba"));
-        owners.add(new Owner("Username", 3, "esteban c", "pongan aca sus correos vagos", "kenedy"));
-        owners.add(new Owner("Username", 4, "pau u", "pongan aca sus correos vagos", "creo que es cerca de la u"));
-        owners.add(new Owner("Username", 5, "esteban u", "pongan aca sus correos vagos", "no se XD"));
+        owners.add(new Owner("juan25", 3, "DAVID", "calle", "bogota"));
+        owners.add(new Owner("juan25", 1, "Robin", "calle", "cali"));
+        owners.add(new Owner("juan25", 2, "Juan", "calle", "cali"));
+
 
         return Response.ok()
                 .entity(owners)
                 .build();
     }
 
-    //Punto 8
-    @GET
-    @Path("/{neighborhood}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response listaPropetariosMascotas(@PathParam("neighborhood") String neighborhood) {
-
-        List<Owner> owners = new ArrayList<Owner>();
-        owners.add(new Owner("juan25", 1, "Juan", "calle", "bogota"));
-        owners.add(new Owner("juan25", 1, "Juan", "calle", "cali"));
-        List<Owner> owners2 = new ArrayList<Owner>();
-        for (int i = 0; i < owners.size(); i++) {
-            if (owners.get(i).getNeighborhood().equals(neighborhood)) {
-                owners2.add(owners.get(i));
-            }
-        }
-
-        return Response.ok()
-                .entity(owners2)
-                .build();
-    }
-
     //Punto 4
-    @GET
-    @Path("/person_id/{person_id}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response listaIdentificacionMascotas(@PathParam("person_id") int person_id) {
 
-        List<Pet> pets = new ArrayList<Pet>();
+    @GET
+    @Path("/ownersMascota")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response punto4(@QueryParam("person_id") String person_id, @QueryParam("name") String name, @QueryParam("neighborhood") String neighborhood) {
+
         List<Owner> owners = new ArrayList<Owner>();
         List<Owner> owners2 = new ArrayList<Owner>();
+        List<Pet> listaPet = new ArrayList<Pet>();
 
-        owners.add(new Owner("juan25", 1, "Juan", "calle", "bogota"));
-        owners.add(new Owner("juan25", 2, "Juan", "calle", "cali"));
+        listaPet.add(new Pet(1, "123sad", "juan", "canino", "buldog", "grande", "masculino", "hola.png", 2));
+        listaPet.add(new Pet(1, "123sad", "juan", "canino", "buldog", "grande", "masculino", "hola.png", 1));
 
-        pets.add(new Pet(1, "1a", "Roberto", "Dogo", "Doge", "medium", "male", "1", 1));
-        pets.add(new Pet(2,"Michel",  "2a", "Cat", "Pers", "small", "female", "2", 2));
+        owners.add(new Owner("juan25", 3, "DAVID", "calle", "bogota"));
+        owners.add(new Owner("juan25", 1, "Robin", "calle", "cali", listaPet));
+        owners.add(new Owner("juan25", 2, "Juan", "calle", "cali", listaPet));
 
 
         for (int i = 0; i < owners.size(); i++) {
-            if (owners.get(i).getPerson_id()==(person_id)) {
-                if(owners.get(i).getPerson_id() == (pets.get(i).getOwner_id())){
+            if (person_id != null) {
+                if (String.valueOf(owners.get(i).getPerson_id()).equals(String.valueOf(person_id))) {
+                    owners2.add(owners.get(i));
+                }
+            }
+            if (name != null) {
+                if (owners.get(i).getName().equals(name)) {
+                    owners2.add(owners.get(i));
+                }
+            }
+            if (neighborhood != null) {
+                if (owners.get(i).getNeighborhood().equals(neighborhood)) {
                     owners2.add(owners.get(i));
                 }
             }
         }
 
-        return Response.ok()
-                .entity(owners2)
-                .build();
-    }
-
-    @GET
-    @Path("/name/{name}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response listaNombreMascotas(@PathParam("name") String name) {
-
-        List<Pet> pets = new ArrayList<Pet>();
-        List<Owner> owners = new ArrayList<Owner>();
-        List<Owner> owners2 = new ArrayList<Owner>();
-
-        owners.add(new Owner("juan25", 1, "Juan", "calle", "bogota"));
-        owners.add(new Owner("juan2", 2, "Juan", "calle", "cali"));
-
-        pets.add(new Pet(1, "1a", "Roberto", "Dogo", "Doge", "medium", "male", "1", 1));
-        pets.add(new Pet(2,"Michel",  "2a", "Cat", "Pers", "small", "female", "2", 2));
-
-
-        for (int i = 0; i < owners.size(); i++) {
-            if (owners.get(i).getName()==(name)) {
-                   owners2.add(owners.get(i));
-            }
-        }
 
         return Response.ok()
-                .entity(owners2)
-                .build();
+                .
+
+                        entity(owners2)
+                .
+
+                        build();
     }
 
-
-    @GET
-    @Path("/neighborhood/{neighborhood}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response listaLocalidadMascotas(@PathParam("neighborhood") String neighborhood) {
-
-        List<Pet> pets = new ArrayList<Pet>();
-        List<Owner> owners = new ArrayList<Owner>();
-        List<Owner> owners2 = new ArrayList<Owner>();
-
-        owners.add(new Owner("juan25", 1, "Juan", "calle", "bogota"));
-        owners.add(new Owner("juan2", 2, "Juan", "calle", "cali"));
-
-        pets.add(new Pet(1, "1a", "Roberto", "Dogo", "Doge", "medium", "male", "1", 1));
-        pets.add(new Pet(2,"Michel",  "2a", "Cat", "Pers", "small", "female", "2", 2));
-
-
-        for (int i = 0; i < owners.size(); i++) {
-            if (owners.get(i).getName()==(neighborhood)) {
-                owners2.add(owners.get(i));
-            }
-        }
-
-        return Response.ok()
-                .entity(owners2)
-                .build();
-    }
 
 }

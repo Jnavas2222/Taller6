@@ -9,48 +9,56 @@ import javax.ws.rs.core.Response;
 import java.util.ArrayList;
 import java.util.List;
 
-@Path("/vets/{vet_id}/pets/{pet_id}/visits/{visit_id}")
+@Path("/vist")
 public class VisitsResource {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response list(@PathParam("vet_id") Integer vet_id, @PathParam("pet_id") Integer pet_id) {
+    public Response listRegistro(@QueryParam("type") String type) {
 
-        List<Visit> visits = new ArrayList<Visit>();
-        visits.add(new Visit(1,"Today", "Control","Control of the pet",vet_id,pet_id));
-        visits.add(new Visit(2,"Today", "Microchip implantation","adding a chip",vet_id,pet_id));
+        List<Visit>visits = new ArrayList<Visit>();
+
+        if(type.equals("esterilización")){
+            visits.add(new Visit(1,"Today", type,"Control of the pet",1,1));
+            visits.add(new Visit(2,"Today", type,"Operacion",1,2));
+            visits.add(new Visit(3,"Today", type,"Operacion",1,3));
+
+        }
+        if(type.equals("implantación de microchip")){
+            visits.add(new Visit(1,"Today", type,"Control of the pet",1,1));
+            visits.add(new Visit(2,"Today", type,"Operacion",1,2));
+            visits.add(new Visit(3,"Today", type,"Operacion",1,3));
+
+        }
+        if(type.equals("vacunación")){
+            visits.add(new Visit(1,"Today", type,"Control of the pet",1,1));
+            visits.add(new Visit(2,"Today", type,"Operacion",1,2));
+            visits.add(new Visit(3,"Today", type,"Operacion",1,3));
+
+        }
+        if(type.equals("desparasitación")){
+            visits.add(new Visit(1,"Today", type,"Control of the pet",1,1));
+            visits.add(new Visit(2,"Today", type,"Operacion",1,2));
+            visits.add(new Visit(3,"Today", type,"Operacion",1,3));
+
+        }
+        if(type.equals("urgencia")){
+            visits.add(new Visit(1,"Today", type,"Control of the pet",1,1));
+            visits.add(new Visit(2,"Today", type,"Operacion",1,2));
+            visits.add(new Visit(3,"Today", type,"Operacion",1,3));
+
+        }
+        if(type.equals("control")){
+            visits.add(new Visit(1,"Today", type,"Control of the pet",1,1));
+            visits.add(new Visit(2,"Today", type,"Operacion",1,2));
+            visits.add(new Visit(3,"Today", type,"Operacion",1,3));
+
+        }
 
         return Response.ok()
                 .entity(visits)
                 .build();
     }
 
-    @POST
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response create(@PathParam("vet_id") Integer vet_id, @PathParam("pet_id") Integer pet_id, Visit visit) {
 
-        visit.setCreated_at("Today");
-        visit.setVet_id(vet_id);
-        visit.setPet_id(pet_id);
-
-        return Response.status(Response.Status.CREATED)
-                .entity(visit)
-                .build();
-    }
-
-    @POST
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response createMicrochip(@PathParam("vet_id") Integer vet_id, Integer pet_id, String microchip,Visit visit, Pet pet) {
-
-        visit.setCreated_at("Today");
-        visit.setVet_id(vet_id);
-        visit.setPet_id(pet_id);
-        pet.setMicrochip(microchip);
-
-        return Response.status(Response.Status.CREATED)
-                .entity(visit)
-                .build();
-    }
 }
