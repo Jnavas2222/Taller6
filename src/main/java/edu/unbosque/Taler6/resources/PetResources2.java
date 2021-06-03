@@ -164,7 +164,6 @@ public class PetResources2 {
     @Produces(MediaType.APPLICATION_JSON)
     public Response create(Pet pet) {
 
-        pet.setPet_id(3);
 
         return Response.status(Response.Status.CREATED)
                 .entity(pet)

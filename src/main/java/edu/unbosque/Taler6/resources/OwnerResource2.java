@@ -56,8 +56,6 @@ public class OwnerResource2 {
     @Produces(MediaType.APPLICATION_JSON)
     public Response create(Owner owner) {
 
-        owner.setPerson_id(3);
-
         return Response.status(Response.Status.CREATED)
                 .entity(owner)
                 .build();
