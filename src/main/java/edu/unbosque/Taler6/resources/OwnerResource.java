@@ -1,6 +1,7 @@
 package edu.unbosque.Taler6.resources;
 
 import edu.unbosque.Taler6.resources.filters.Logged;
+import edu.unbosque.Taler6.resources.pojos.Owner;
 import edu.unbosque.Taler6.resources.pojos.User;
 import edu.unbosque.Taler6.services.UserAppService;
 
@@ -13,31 +14,30 @@ import java.util.Optional;
 public class OwnerResource {
 
     @POST
+    @Path("/creatOwner")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response create(User user) {
+    public Response create(Owner owner) {
 
-        user.setRole("owner");
-
-        Optional<User> persistedUser = new UserAppService().createUser(user);
-
-        if (persistedUser.isPresent()) {
-            return Response.status(Response.Status.CREATED)
-                    .entity(persistedUser.get())
-                    .build();
-        } else {
-            return Response.serverError()
-                    .entity("Owner user could not be created")
-                    .build();
-        }
-
-
+        return Response.status(Response.Status.CREATED)
+                .entity(owner)
+                .build();
     }
+
+    @PUT
+    @Path("/username/{username}/person_id/{person_id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response modify(@PathParam("username") String Username,  @PathParam("person_id") Integer id, Owner owner) {
+        return Response.ok()
+                .entity(owner)
+                .build();
+    }
+
 
     @Logged
     @POST
     @Produces(MediaType.TEXT_PLAIN)
-    public Response modify(@HeaderParam("role") String role, User user){
+    public Response modify(@HeaderParam("role") String role, User user) {
         user.setRole(role);
 
         return Response.ok().entity("Role changed").build();

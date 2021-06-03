@@ -48,6 +48,22 @@ public class CasesResource {
                 .build();
     }
 
+    @GET
+    @Path("/case")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response listaSexo() {
+
+        List<Case> cases = new ArrayList<Case>();
+        cases.add(new Case(1,"Today","esterilización","Someone was EVIL",1));
+        cases.add(new Case(2,"Today","implantación de microchip","Poor thing got an arrow to the knee",2));
+        cases.add(new Case(1,"Today","vacunación","Someone was EVIL",3));
+
+
+        return Response.ok()
+                .entity(cases)
+                .build();
+    }
+
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
