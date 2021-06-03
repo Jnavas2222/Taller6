@@ -5,30 +5,20 @@ import edu.unbosque.Taler6.resources.pojos.Case;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
-@Path("/pets/{pet_id}/created/{created_at}/type/{type}/description/{description}")
+@Path("Cases")
 public class CasesResource {
-
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response list(@PathParam("pet_id") Integer pet_id, @PathParam("created_at") String created_at, @PathParam("type") String type, @PathParam("description") String description) {
+    public Response list() {
 
         List<Case> cases = new ArrayList<Case>();
-        Date date = new Date();
-        System.out.println(date.toString());
-        DateFormat fechaHora = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String fecha = fechaHora.format(date);
-
-
-        for (int i = 0; i < cases.size(); i++) {
-            cases.add(new Case(i, created_at, type, description, pet_id));
-        }
+        cases.add(new Case(1,"Today","Perdida","Someone was EVIL",1));
+        cases.add(new Case(2,"Today","Robo","Poor thing got an arrow to the knee",2));
+        cases.add(new Case(1,"Today","fallecimiento","Someone was EVIL",3));
 
 
         return Response.ok()
@@ -39,7 +29,7 @@ public class CasesResource {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response create(@PathParam("pet_id") Integer pet_id, Case aCase) {
+    public Response create(Case aCase) {
 
         aCase.setCase_id(3);
 
